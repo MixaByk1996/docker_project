@@ -1,0 +1,23 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Автор{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Данные автора</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-info float-right" href="{{ path('app_author_index') }}">
+                    Показать список авторов
+                </a>
+            </div>
+            <div class="card-body">
+                <b class="text-muted">ФИО:</b>
+                <p>{{ author.name }}</p>
+                <b class="text-muted">Кол-во книг:</b>
+                <p>{{ author.getCountBooks() }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

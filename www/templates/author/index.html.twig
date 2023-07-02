@@ -1,0 +1,56 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Список авторов{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Список авторов</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('app_author_new') }}">
+                    Добавить данные автора
+                </a>
+                <a class="btn btn-outline-primary" href="{{ path('app_book_index') }}">
+                    Перейти в список книг
+                </a>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Id</th>
+                        <th>ФИО</th>
+                        <th>Кол-во книг</th>
+                        <th width="240px">Действия</th>
+                    </tr>
+                    {% for author in authors %}
+                        <tr>
+                            <td>{{ author.id }}</td>
+                            <td>{{ author.name }}</td>
+                            <td>{{ author.countBooks }}</td>
+
+                            <td>
+                                <form method="post" action="{{ path('app_author_delete', {'id': author.id}) }}" onsubmit="return confirm('Вы действительно хотите удалить запись?');">
+                                    <a
+                                            class="btn btn-outline-info"
+                                            href="{{ path('app_author_show', {'id': author.id}) }}">
+                                        Подробнее
+                                    </a>
+                                    <a
+                                            class="btn btn-outline-success"
+                                            href="{{ path('app_author_edit', {'id': author.id}) }}">
+                                        Редактирование
+                                    </a>
+
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ author.id) }}">
+                                    <button class="btn btn-outline-danger">Удалить</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
