@@ -51,7 +51,7 @@ class BookRepository extends ServiceEntityRepository
 
     public function setCountBooksOfAuthor(Author $author){
         $count = 0;
-        $link = mysqli_connect(getenv('DB_HOST'), getenv('DB_USER'), getenv('DB_PASSWORD'), getenv('DB_DATABASE'));
+        $link = mysqli_connect("mysql", "root", "root", "test");
         $sql = 'SELECT COUNT(book_id) FROM author_books WHERE author_id = '.$author->getId();
         if ($res = mysqli_query($link, $sql)) {
             if (mysqli_num_rows($res) > 0) {
